@@ -1,0 +1,21 @@
+﻿@model Data.Lib.Entity.Account
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Account</h4>
+<hr />
+
+<form asp-action="Eidt">
+    @await Component.InvokeAsync("AccountInfo",new { id=Model.Id});
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

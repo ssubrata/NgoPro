@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Data.Lib.Member>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<table ng-controller="memberCtrl as ctrl" class="table table-bordered bordered table-striped table-condensed memberTable" id="member_table" style="width:100%">
+    <thead>
+        <tr>
+            <th>MemberNo</th>
+            <th>Name</th>
+            <th>NationalNo</th>
+            <th>ContactNo</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="member in ctrl.members">
+            <td>{{member.memberNo}}</td>
+            <td>{{member.fullName}}</td>
+            <td>{{member.nationalNo}}</td>
+            <td>{{member.contactNo}}</td>
+            <td>{{member.gender}}</td>
+            <td>
+                <span ng-click="ctrl.edit(member)" class='glyphicon glyphicon-pencil'>Edit</span>
+                <span ng-click="ctrl.detail(member)" class='glyphicon glyphicon-user'>Detail</span>
+                <span ng-click="ctrl.delete(member)" class='glyphicon glyphicon-remove'>Delete</span>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+@*<table ng-controller="memberCtrl as ctrl" style="width:100%" class="table table-sm  table-striped">
+    <thead>
+        <tr>
+            <th>
+               
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NationalNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermanentAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresentAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FatherName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NationalNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PermanentAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresentAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FatherName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+

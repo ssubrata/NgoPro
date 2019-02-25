@@ -1,0 +1,12 @@
+﻿@model Data.Lib.Entity.Account
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<p>Create Account</p>
+<hr />
+<form asp-action="Create">
+    @await Component.InvokeAsync("AccountInfo");
+</form>

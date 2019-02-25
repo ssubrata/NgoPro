@@ -1,0 +1,113 @@
+﻿@model Data.Lib.Entity.Account
+
+<div class="" ng-controller="accountCtrl as ctrl" ng-init="ctrl.onEditAccount(@Model.Id)">
+    <div class="form-row">
+
+        <div class="form-group col-md-4">
+            <label asp-for="AccountNo" class="control-label"></label>
+            <input asp-for="AccountNo" ng-model="ctrl.account.accountNo" class="form-control" />
+            <span asp-validation-for="AccountNo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" ng-model="ctrl.account.status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="CreateDate" class="control-label"></label>
+            <input asp-for="CreateDate" value="{{ctrl.account.createDate}}" class="form-control" />
+            <span asp-validation-for="CreateDate" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="form-row ">
+        <div class="form-group col-md-4">
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                             md-no-cache="ctrl.noCache"
+                             md-selected-item="ctrl.selectedMemberItem"
+                             md-search-text-change="ctrl.searchMemberTextChange(ctrl.searchMemberText)"
+                             md-search-text="ctrl.searchMemberText"
+                             md-selected-item-change="ctrl.selectedMemberItemChange(item)"
+                             md-items="item in ctrl.queryMemberSearch(ctrl.searchMemberText)"
+                             md-item-text="item.fullName"
+                             md-min-length="0"
+                             placeholder=" Select Member"
+                             input-aria-labelledby="favoriteStateLabel"
+                             input-aria-describedby="autocompleteDetailedDescription">
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchMemberText" md-highlight-flags="^i">{{item.fullName}}_{{item.memberNo}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No Member matching "{{ctrl.searchMemberText}}" were found.
+                    <a ng-click="ctrl.newState(ctrl.searchMemberText)">Create a new one!</a>
+                </md-not-found>
+            </md-autocomplete>
+            <input hidden asp-for="MemberId" ng-model="ctrl.member.id">
+        </div>
+    </div>
+
+    <div class="form-row ">
+        <div class="form-group col-md-4">
+            <label class="control-label">Full Name</label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedMemberItem.fullName" placeholder="Full Name">
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">National No</label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedMemberItem.nationalNo" placeholder="National No">
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">National No</label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedMemberItem.fatherName" placeholder="Father Name">
+        </div>
+    </div>
+
+    <div class="form-row ">
+        <div class="form-group col-md-4">
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                             md-no-cache="ctrl.noCache"
+                             md-selected-item="ctrl.selectedBookItem"
+                             md-search-text-change="ctrl.searchBookTextChange(ctrl.searchBookText)"
+                             md-search-text="ctrl.searchBookText"
+                             md-selected-item-change="ctrl.selectedBookItemChange(item)"
+                             md-items="item in ctrl.queryBookSearch(ctrl.searchBookText)"
+                             md-item-text="item.bookName"
+                             md-min-length="0"
+                             placeholder=" Select Book"
+                             input-aria-labelledby="favoriteStateLabel"
+                             input-aria-describedby="autocompleteDetailedDescription">
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchBookText" md-highlight-flags="^i">{{item.bookName}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No Book matching "{{ctrl.searchBookText}}" were found.
+                    <a ng-click="ctrl.newState(ctrl.searchBookText)">Create a new one!</a>
+                </md-not-found>
+            </md-autocomplete>
+            <input hidden asp-for="BookId" ng-model="ctrl.book.id">
+        </div>
+    </div>
+
+    <div class="form-row ">
+        <div class="form-group col-md-4">
+            <label class="control-label">Book Payment Type</label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedBookItem.paymentMethod.paymentMethodName" placeholder="Full Name">
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Payment Amount </label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedBookItem.paymentAmount" placeholder="National No">
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Book Status</label>
+            <input type="text" class="form-control" ng-model="ctrl.selectedBookItem.isActive" placeholder="Father Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

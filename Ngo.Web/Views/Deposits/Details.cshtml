@@ -1,0 +1,116 @@
+﻿@model Data.Lib.Entity.Deposit
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div ng-controller="depositCtrl as ctrl" ng-init="ctrl.onLoadDepositById(@Model.AccountId)">
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Account Information</h5>
+
+            <form class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Account No</label>
+                        <input readonly value="{{ctrl.dailyDeposits.accountNo}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Member No</label>
+                        <input readonly value="{{ctrl.dailyDeposits.member.memberNo}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Member Name</label>
+                        <input readonly value="{{ctrl.dailyDeposits.member.fullName}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Book</label>
+                        <input readonly value="{{ctrl.dailyDeposits.book.bookName}}" class="form-control" />
+                    </div>
+                </div>
+            </form>
+
+
+
+            <button type="button" class="float-right btn btn-primary" ng-click="ctrl.newShow=true">New Deposit</button>
+            <br />
+            <h5 ng-if="ctrl.newShow" class="card-title">New Deposit</h5>
+            <form ng-if="ctrl.newShow" class="card-body" style="padding:10px;" asp-action="Create">
+                <input asp-for="AccountId" hidden />
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input asp-for="DepositAmount" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input asp-for="DepositDate" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info" ng-click="">Add Deposit</button>
+                <button type="button" class="btn btn-warning" ng-click="ctrl.newShow=false">Cancel</button>
+
+            </form>
+
+            <h5 ng-if="ctrl.editShow" class="card-title">Edit Deposit</h5>
+            <form ng-if="ctrl.editShow && ctrl.editdeposit!=null" class="card-body" style="padding:10px;" asp-action="Edit">
+                <input asp-for="AccountId" value="@Model.AccountId" hidden />
+                <input asp-for="Id" value="{{ctrl.editdeposit.id}}" hidden />
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input asp-for="DepositAmount" value="{{ctrl.editdeposit.depositAmount}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input asp-for="DepositDate" value="{{ctrl.editdeposit.depositDate}}" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-warning" ng-click="">Edit Deposit</button>
+                <button type="button" class="btn btn-danger" ng-click="ctrl.editShow=false">Cancel</button>
+
+            </form>
+
+
+
+        </div>
+    </div>
+
+    <br />
+    <table class="table table-bordered bordered table-striped table-condensed deposiTable" id="deposit_table">
+        <thead>
+            <tr>
+                <th><span>Daily Amount</span></th>
+                <th><span>Deposit Date</span></th>
+                <th><span>Action</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="deposit in ctrl.dailyDeposits.depositCollection">
+
+                <td>{{deposit.depositAmount}}</td>
+                <td>{{deposit.depositDate}}</td>
+                <td>
+                    <span ng-click="ctrl.edit(deposit)" class='glyphicon glyphicon-remove'>Edit</span>
+                    <span ng-click="ctrl.delete(deposit)" class='glyphicon glyphicon-user'>Remove</span>
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+
+
+
+</div>

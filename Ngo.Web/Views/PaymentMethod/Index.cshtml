@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PaymentMethodModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<table ng-controller="paymentMethodrCtrl as ctrl" class="table table-bordered bordered table-striped table-condensed paymentMethodTable" id="paymentMethod_table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Payment Method</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="payment in ctrl.paymentMethods">
+            <td>{{payment.paymentMethodName}}</td>
+            <td>
+                <span ng-click="ctrl.edit(payment)" class='glyphicon glyphicon-pencil'>Edit</span>
+                <span ng-click="ctrl.delete(payment)" class='glyphicon glyphicon-remove'>Delete</span>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+
+

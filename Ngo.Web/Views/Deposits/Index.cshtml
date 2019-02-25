@@ -1,0 +1,39 @@
+﻿@model Data.Lib.Entity.Deposit
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div ng-controller="depositCtrl as ctrl">
+    <table class="table table-bordered bordered table-striped table-condensed accountTable" id="account_table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><span>Account No</span></th>
+                <th><span>Member No</span></th>
+                <th><span>Member Name</span></th>
+                <th><span>National No</span></th>
+                <th><span>Gender</span></th>
+                <th><span>Book Name</span></th>
+                <th><span>Action</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="account in ctrl.accounts">
+                <td>{{$index+1}}</td>
+                <td>{{account.accountNo}}</td>
+                <td>{{account.memberId}}</td>
+                <td>{{account.member.fullName}}</td>
+                <td>{{account.member.nationalNo}}</td>
+                <td>{{account.member.gender}}</td>
+                <td>{{account.book.bookName}}</td>
+                <td>
+                    <span ng-click="ctrl.detail(account)" class='glyphicon glyphicon-user'>Detail</span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

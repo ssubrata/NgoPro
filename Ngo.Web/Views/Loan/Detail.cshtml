@@ -1,0 +1,115 @@
+﻿@model Data.Lib.Entity.Loan
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div ng-controller="loanCtrl as ctrl" ng-init="ctrl.onLoadLoanById(@Model.AccountId)">
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Account Information</h5>
+
+            <form class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Account No</label>
+                        <input readonly value="{{ctrl.loans.accountNo}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Member No</label>
+                        <input readonly value="{{ctrl.loans.member.memberNo}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Member Name</label>
+                        <input readonly value="{{ctrl.loans.member.fullName}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Book</label>
+                        <input readonly value="{{ctrl.loans.book.bookName}}" class="form-control" />
+                    </div>
+                </div>
+            </form>
+
+
+
+            <button type="button" class="float-right btn btn-primary" ng-click="ctrl.newShow=true">New Loan</button>
+            <br />
+            <h5 ng-if="ctrl.newShow" class="card-title">New Loan</h5>
+            <form ng-if="ctrl.newShow" class="card-body" style="padding:10px;" asp-action="Create">
+                <input asp-for="AccountId" hidden />
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input asp-for="LoanAmount" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input asp-for="LoanDate" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info" ng-click="">Add Loan</button>
+                <button type="button" class="btn btn-warning" ng-click="ctrl.newShow=false">Cancel</button>
+
+            </form>
+
+            <h5 ng-if="ctrl.editShow" class="card-title">Edit Loan</h5>
+            <form ng-if="ctrl.editShow && ctrl.editloan!=null" class="card-body" style="padding:10px;" asp-action="Edit">
+                <input asp-for="AccountId" value="@Model.AccountId" hidden />
+                <input asp-for="Id" value="{{ctrl.editloan.id}}" hidden />
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input asp-for="LoanAmount" value="{{ctrl.editloan.loanAmount}}" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input asp-for="LoanDate" value="{{ctrl.editloan.loanDate}}" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-warning" ng-click="">Edit Loan</button>
+                <button type="button" class="btn btn-danger" ng-click="ctrl.editShow=false">Cancel</button>
+
+            </form>
+
+
+
+        </div>
+    </div>
+
+    <br />
+    <table class="table table-bordered bordered table-striped table-condensed ProvideLoanListtable" id="ProvideLoanList_table">
+        <thead>
+            <tr>
+                <th><span>Loan Amount</span></th>
+                <th><span>Giver Date</span></th>
+                <th><span>Action</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="loan in ctrl.loans.provideLoanList" ng-click="ctrl.open(loan)">
+
+                <td>{{loan.loanAmount}}</td>
+                <td>{{loan.loanDate}}</td>
+                <td>
+                    <span ng-click="ctrl.edit(loan)" class='glyphicon glyphicon-remove'>Edit</span>
+                    <span ng-click="ctrl.delete(loan)" class='glyphicon glyphicon-user'>Remove</span>     
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+   
+
+
+</div>

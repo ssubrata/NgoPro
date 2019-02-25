@@ -1,0 +1,78 @@
+﻿<md-dialog  style="width:50%; padding:5px;">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Daily Loan Collection</h2>
+                <span flex></span>
+
+                   <md-button md-no-ink class="md-warn" ng-click="ctrl.new=true">Loan Collection</md-button>
+  
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+
+            <div ng-if="ctrl.new" style="padding:10px;">
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input ng-model="ctrl.collectedLoan.loanCollectAmount" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input type="date" ng-model="ctrl.collectedLoan.loanCollectDate" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info" ng-click="ctrl.collectLoan()">Add Loan</button>
+                <button type="button" class="btn btn-warning" ng-click="ctrl.new=false">Cancel</button>
+            </div>
+
+            <div ng-if="ctrl.editLoan && ctrl.collectedLoan!=null" style="padding:10px;">
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Amount</label>
+                        <input ng-model="ctrl.collectedLoan.loanCollectAmount" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Date</label>
+                        <input type="date" ng-model="ctrl.collectedLoan.loanCollectDate" value="{{ctrl.collectedLoan.loanCollectDate}}" class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info" ng-click="ctrl.editcollectLoan()">Edit Loan</button>
+                <button type="button" class="btn btn-warning" ng-click="ctrl.editLoan=false">Cancel</button>
+            </div>
+
+            <br />
+            <table class="table table-bordered bordered table-striped table-condensed LoanCollectionListtable" id="LoanCollectionListtable_table">
+                <thead>
+                    <tr>
+                        <th><span>Loan Amount</span></th>
+                        <th><span>Given Date</span></th>
+                        <th><span>Action</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="loan in ctrl.loanCollection">
+
+                        <td>{{loan.loanCollectAmount}}</td>
+                        <td>{{loan.loanCollectDate}}</td>
+                        <td>
+                            <span ng-click="ctrl.edit(loan)" class='glyphicon glyphicon-remove'>Edit</span>
+                            <span ng-click="ctrl.delete(loan)" class='glyphicon glyphicon-user'>Remove</span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+       
+        </md-dialog-actions>
+    </form>
+</md-dialog>

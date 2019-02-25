@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Data.Lib.Entity.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div ng-controller="accountCtrl as ctrl">
+    <table class="table table-bordered bordered table-striped table-condensed accountTable" id="account_table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><span>Account No</span></th>
+                <th><span>Member No</span></th>
+                <th><span>Member Name</span></th>
+                <th><span>National No</span></th>
+                <th><span>Gender</span></th>
+                <th><span>Book Name</span></th>
+                <th><span>Action</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="account in ctrl.accounts">
+                <td>{{$index+1}}</td>
+                <td>{{account.accountNo}}</td>
+                <td>{{account.memberId}}</td>
+                <td>{{account.member.fullName}}</td>
+                <td>{{account.member.nationalNo}}</td>
+                <td>{{account.member.gender}}</td>
+                <td>{{account.book.bookName}}</td>
+                <td>
+
+                    <span ng-click="ctrl.edit(account)" class='glyphicon glyphicon-pencil'>Edit</span>
+                    <span ng-click="ctrl.details(account)" class='glyphicon glyphicon-user'>Detail</span>
+                    <span ng-click="ctrl.delete(account)" class='glyphicon glyphicon-remove'>Delete</span>
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
